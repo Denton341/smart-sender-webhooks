@@ -3,6 +3,10 @@
 Тестове завдання Senior Frontend Engineer: вхід, список вебхуків із пагінацією та пошуком, редагування.
 API імітує MSW за контрактом із завдання.
 
+**Демо:** https://denton341.github.io/smart-sender-webhooks/
+Сайт на GitHub Pages. Бекенд — це MSW-мок у браузері, тож для перегляду нічого запускати не треба.
+Деплой — `npm run deploy` ([`scripts/deploy-pages.sh`](scripts/deploy-pages.sh)): скрипт проганяє lint і тести, збирає застосунок під шлях `/smart-sender-webhooks/` і публікує `dist/` у гілку `gh-pages`.
+
 ## Запуск
 
 Потрібен Node.js 20 або новіший.

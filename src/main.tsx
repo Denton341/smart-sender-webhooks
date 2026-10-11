@@ -7,7 +7,10 @@ import './styles.css'
 async function main() {
   // There is no real backend: the MSW worker answers every API call.
   const { worker } = await import('./mocks/browser')
-  await worker.start({ onUnhandledRequest: 'bypass' })
+  await worker.start({
+    onUnhandledRequest: 'bypass',
+    serviceWorker: { url: `${import.meta.env.BASE_URL}mockServiceWorker.js` },
+  })
   void startSession()
 
   const root = document.getElementById('root')
