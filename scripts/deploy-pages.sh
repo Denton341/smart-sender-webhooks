@@ -11,7 +11,10 @@ npm run lint
 npm test
 BASE_PATH="/${repo_name}/" npm run build
 
-# Pages has no SPA rewrites: serve the app for deep links such as /webhooks/5?page=2.
+# Pages has no SPA rewrites. It does serve /webhooks from webhooks.html, so a
+# copy per top-level route keeps reloads at 200; deeper links such as
+# /webhooks/5 get the same app through the 404 page.
+for route in login webhooks; do cp dist/index.html "dist/${route}.html"; done
 cp dist/index.html dist/404.html
 touch dist/.nojekyll
 

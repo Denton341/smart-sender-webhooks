@@ -68,6 +68,16 @@ describe('session renewal', () => {
     expect(responses.toSorted()).toEqual(['GET /v1/me 401', 'GET /v1/webhooks 401', 'POST /auth/token/rotate 400'])
     expect(onSessionExpired).toHaveBeenCalledTimes(1)
   })
+
+  it('ends the session when the retry after a successful rotate is 401 again', async () => {
+    const { api, onSessionExpired } = await signedInApi()
+    server.use(http.get(`${BASE_URL}/v1/me`, () => errorResponse(401)))
+
+    await expect(api.me.get()).rejects.toMatchObject({ status: 401 })
+
+    expect(responses).toEqual(['GET /v1/me 401', 'POST /auth/token/rotate 200', 'GET /v1/me 401'])
+    expect(onSessionExpired).toHaveBeenCalledTimes(1)
+  })
 })
 
 describe('CSRF', () => {
